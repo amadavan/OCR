@@ -28,7 +28,7 @@
 *.app
 
 # SublimeText
-.sublime-*
+*.sublime-*
 bin/
 build/
 lib/
