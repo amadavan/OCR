@@ -6,6 +6,8 @@
 #include <float.h>
 #include <string.h>
 
+#include <exception>      // std::invalid_argument
+
 #include "util/ocrtypes.h"
 
 namespace ocr {
