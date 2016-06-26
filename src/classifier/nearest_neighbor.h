@@ -6,8 +6,8 @@
 #include <float.h>
 #include <string.h>
 
-#include <exception>      // std::invalid_argument
-
+#include "metric/metric.h"
+#include "metric/pnorm_metric.h"
 #include "util/ocrtypes.h"
 
 namespace ocr {
@@ -19,29 +19,17 @@ namespace ocr {
  */
 class NearestNeighbor : public ClassifierInterface {
 public:
+	friend class NearestNeighborTests;
 
 	/**
-	 * Constructor for p-norm metric
-	 *
-	 * Defines the metric space for the distance computation to be the
-	 * specified unsigned integer norm. (default = 2)
+	 * Constructor for nearest neighbor from metric
 	 * 
-	 * @param[in] distance_norm unsigned integer norm
-	 */
-	NearestNeighbor(const uint32_t distance_norm = 2);
-
-	/**
-	 * Constructor for (-)inf and frobenius norm metric spaces
+	 * Defines the Nearest Neighbor classifier with a given distance metric used
+	 * to determine the closest neighbors. Defaults to empty p-norm.
 	 *
-	 * Defines the metric space for the distance computation to be the
-	 * specified string. This is used for determining the min and max norm,
-	 * as well as the frobenius norm, with parameters "-inf", "inf", "fro",
-	 * respectively.
-	 * 
-	 * @param[in] distance_norm string norm. Possible values include "inf" (max),
-	 *   "-inf" (min), and "fro" (frobenius)
+	 * @param[in] metric A metric specified by the Metric class
 	 */
-	NearestNeighbor(const std::string &distance_norm);
+	NearestNeighbor( Metric *metric = new PNorm() );
 	~NearestNeighbor() {}
 
 	/**
@@ -113,7 +101,7 @@ public:
 	 *
 	 * @param[in] filename std::string name of file in which to store data
 	 */
-	 void save( const std::string &filename );
+	void save( const std::string &filename );
 
 	/**
 	 * Deserialization routine
@@ -130,9 +118,7 @@ public:
 private:
 	arma::mat training_set_;
 	arma::Col<label_t> training_labels_;
-	uint32_t distance_norm_int_;
-	std::string distance_norm_str_;
-
+	Metric *metric_;
 };
 
 }

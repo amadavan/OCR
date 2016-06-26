@@ -2,6 +2,8 @@
 
 #include <exception>
 
+#include <armadillo>
+
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
@@ -17,15 +19,12 @@ namespace ocr {
 		}
 	};
 
-	TEST_F(NearestNeighborTests, Constructor_PosNumberParam_Valid) {
+	TEST_F(NearestNeighborTests, Constructor_Empty_Valid) {
 		EXPECT_NO_THROW({ocr::NearestNeighbor();});
-		EXPECT_NO_THROW({ocr::NearestNeighbor(1);});
-		EXPECT_NO_THROW({ocr::NearestNeighbor(2);});
 	}
 
-	TEST_F(NearestNeighborTests, Constructor_StrParam_Valid) {
-		EXPECT_NO_THROW({ocr::NearestNeighbor("inf");});
-		EXPECT_NO_THROW({ocr::NearestNeighbor("-inf");});
+	TEST_F(NearestNeighborTests, Constructor_PNorm_Valid) {
+		EXPECT_NO_THROW({ocr::NearestNeighbor(PNorm());});
 	}
 
 	TEST_F(NearestNeighborTests, Constructor_StrParam_Invalid) {
@@ -33,6 +32,10 @@ namespace ocr {
 		EXPECT_THROW({ocr::NearestNeighbor("i");}, std::invalid_argument);
 		EXPECT_THROW({ocr::NearestNeighbor("in");}, std::invalid_argument);
 		EXPECT_THROW({ocr::NearestNeighbor("asdf");}, std::invalid_argument);
+	}
+
+	TEST_F(NearestNeighborTests, Train_) {
+		ocr::NearestNeighbor nn = ocr::NearestNeighbor();
 	}
 
 }
