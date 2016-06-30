@@ -27,13 +27,6 @@ namespace ocr {
 		EXPECT_NO_THROW({ocr::NearestNeighbor(PNorm());});
 	}
 
-	TEST_F(NearestNeighborTests, Constructor_StrParam_Invalid) {
-		EXPECT_THROW({ocr::NearestNeighbor("");}, std::invalid_argument);
-		EXPECT_THROW({ocr::NearestNeighbor("i");}, std::invalid_argument);
-		EXPECT_THROW({ocr::NearestNeighbor("in");}, std::invalid_argument);
-		EXPECT_THROW({ocr::NearestNeighbor("asdf");}, std::invalid_argument);
-	}
-
 	TEST_F(NearestNeighborTests, Train_) {
 		ocr::NearestNeighbor nn = ocr::NearestNeighbor();
 	}
