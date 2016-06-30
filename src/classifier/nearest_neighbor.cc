@@ -56,10 +56,10 @@ double ocr::NearestNeighbor::validate( const arma::mat &test_vectors,
 	return 1.0*errors/test_vectors.n_cols;
 }
 
-void ocr::NearestNeighbor::save( const std::string &filename ) {
+void ocr::NearestNeighbor::save( const std::ostream &filename ) {
 
 }
 
-void ocr::NearestNeighbor::load( const std::string &filename ) {
+void ocr::NearestNeighbor::load( const std::istream &filename ) {
 
 }

@@ -3,6 +3,7 @@
 
 #include <armadillo>
 
+#include "util/serialize.h"
 #include "util/ocrtypes.h"
 
 namespace ocr {
@@ -92,30 +93,6 @@ public:
 	virtual double validate( const arma::mat &test_mat,
 						const arma::Col<label_t> &true_labels,
 						arma::Col<label_t> *predicted_labels = nullptr	) = 0;
-
-	/**
-	 * Serialization routine
-	 *
-	 * Serialize the algorithm to allow for the use of a trained algorithm 
-	 * without the need to retrain at every usage. This will help prevent
-	 * unnecessary training computations that can be very resource-intensive.
-	 * Requires that training method has already been completed.
-	 *
-	 * @param[in] filename std::string name of file in which to store data
-	 */
-	 virtual void save( const std::string &filename ) = 0;
-
-	/**
-	 * Deserialization routine
-	 *
-	 * Load a trained algorithm from a file specified by the argument. This
-	 * file should correspond to one output by the save routine of the same
-	 * class. There are checks in place to ensure that only a file serialized
-	 * by the class will be able to be loaded.
-	 *
-	 * @param[in] filename std::string name of file from which to load data
-	 */
-	virtual void load( const std::string &filename ) = 0;
 
 };
 

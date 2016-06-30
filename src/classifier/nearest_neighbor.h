@@ -91,30 +91,6 @@ public:
 					 const arma::Col<label_t> &true_labels,
 					 arma::Col<label_t> *predicted_labels = nullptr	);
 
-	/**
-	 * Serialization routine
-	 *
-	 * Serialize the algorithm to allow for the use of a trained algorithm 
-	 * without the need to retrain at every usage. This will help prevent
-	 * unnecessary training computations that can be very resource-intensive.
-	 * Requires that training method has already been completed.
-	 *
-	 * @param[in] filename std::string name of file in which to store data
-	 */
-	void save( const std::string &filename );
-
-	/**
-	 * Deserialization routine
-	 *
-	 * Load a trained algorithm from a file specified by the argument. This
-	 * file should correspond to one output by the save routine of the same
-	 * class. There are checks in place to ensure that only a file serialized
-	 * by the class will be able to be loaded.
-	 *
-	 * @param[in] filename std::string name of file from which to load data
-	 */
-	void load( const std::string &filename );
-
 private:
 	arma::mat training_set_;
 	arma::Col<label_t> training_labels_;
