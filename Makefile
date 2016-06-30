@@ -5,7 +5,7 @@ TARGET_TEST	:= ocr_test
 # Compiler, Linker Flags
 CC			:= clang++
 LINKER		:= $(CC)
-CFLAGS		:= -std=c++11 -O3 -DARMA_DONT_USE_WRAPPER -march=native -DBENCHMARK
+CFLAGS		:= -std=c++11 -O3 -DARMA_DONT_USE_WRAPPER -march=native
 LFLAGS		:= -L /usr/local/opt/openblas/lib -L lib 
 SRCEXT		:= cc
 
