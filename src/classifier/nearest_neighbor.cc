@@ -13,20 +13,14 @@ void ocr::NearestNeighbor::train( const arma::mat &training_set,
 
 ocr::label_t ocr::NearestNeighbor::predict( const arma::vec &predict_vector ) {
 
-	double distance = 0;
-	double minimum_distance = DBL_MAX;
 	size_t nearest_neighbor_index = -1;
 
-	for ( size_t i = 0; i < this->training_set_.n_cols; i++ )
-	{
-		distance = this->metric_->distance(predict_vector, this->training_set_.col(i));
-
-		if ( distance < minimum_distance )
-		{
-			nearest_neighbor_index = i;
-			minimum_distance = distance;
-		}
+	arma::vec distances = arma::vec(this->training_set_.n_cols);
+	for ( arma::uword i = 0; i < this->training_set_.n_cols; i++ ) {
+		distances[i] = this->metric_->distance(predict_vector, this->training_set_.unsafe_col(i));
 	}
+
+	nearest_neighbor_index = distances.index_min();
 
 	return this->training_labels_[nearest_neighbor_index];
 }
@@ -36,7 +30,7 @@ ocr::label_t* ocr::NearestNeighbor::test( const arma::mat &test_vectors ) {
 		(ocr::label_t*)malloc(sizeof(ocr::label_t)*test_vectors.n_cols);
 
 	for ( size_t i = 0; i < test_vectors.n_cols; i++ ) {
-		predicted_labels[i] = predict(test_vectors.col(i));
+		predicted_labels[i] = predict(test_vectors.unsafe_col(i));
 	}
 
 	return &predicted_labels[0];
