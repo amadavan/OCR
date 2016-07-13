@@ -3,10 +3,10 @@ TARGET		:= ocr
 TARGET_TEST	:= ocr_test
 
 # Compiler, Linker Flags
-CC			:= clang++
+CC			:= icpc
 LINKER		:= $(CC)
-CFLAGS		:= -std=c++11 -O3 -DARMA_DONT_USE_WRAPPER -march=native
-LFLAGS		:= -L /usr/local/opt/openblas/lib -L lib 
+CFLAGS		:= -std=c++11 -O3 -march=native -pthread
+LFLAGS		:= -L lib 
 SRCEXT		:= cc
 
 TESTFLAGS	:= $(LFLAGS) -pthread
@@ -15,8 +15,8 @@ OPENCVLINK	:= -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml \
 				-lopencv_video -lopencv_features2d -lopencv_calib3d \
 				-lopencv_objdetect -lopencv_stitching
 
-INC 		:= -I /usr/local/opt/openblas/include -I . -I ./src -I ./include
-LIB 		:= -larmadillo -lopenblas -llapack $(OPENCVLINK)
+INC 		:= -I . -I ./src -I ./include
+LIB 		:= -larmadillo $(OPENCVLINK) -lpthread
 TESTLIB		:= $(LIB) -lgmock -lgtest
 
 # Designate directories
