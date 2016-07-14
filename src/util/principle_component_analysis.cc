@@ -39,7 +39,8 @@ void ocr::PCA::solve( const arma::mat &dataset ) {
 	arma::vec percent_variability = arma::cumsum(eigenvalues)/arma::sum(eigenvalues);
 	switch ( this->dimension_select_mode_ ) {
 		case AUTO:
-			this->num_reduced_dimensions_ = determine_dimensions(eigenvalues);
+			this->num_reduced_dimensions_ =
+				determine_dimensions(eigenvalues, dataset.n_cols);
 		case NUM_DIMENSIONS:
 			this->percent_variability_ =
 				percent_variability[this->num_reduced_dimensions_-1];
